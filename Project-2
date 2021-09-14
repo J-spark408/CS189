@@ -1,0 +1,67 @@
+#include <iostream>
+#include <vector>
+class Shape {
+public:
+	double size = 0.0;
+	virtual void SetSize(double s)
+  {
+		size = s;
+	}
+	virtual double GetArea() = 0;
+};
+
+class Circle : public Shape {
+
+public: 
+	virtual double GetArea() 
+  {
+		return 3.14159265358979323846 * size * size;
+	}
+};
+
+class Square : public Shape {
+
+public:
+	virtual double GetArea() 
+  {
+		return size * size;
+	}
+};
+
+int main()
+{
+	std::vector<Shape*> shapes;
+	Circle c1;
+	Circle c2;
+	c1.SetSize(5);
+	c2.SetSize(10);
+	Square s1;
+	Square s2;
+	s1.SetSize(5);
+	s2.SetSize(10);
+	shapes.push_back(&s1);
+	shapes.push_back(&s2);
+	shapes.push_back(&c1);
+	shapes.push_back(&c2);
+
+	for (int i = 0; i < shapes.size(); i++) {
+		std::cout << "Get Area: " << shapes[i]->GetArea() << std::endl;
+	}
+}
+
+/*Make Square and Circle classes.
+Make a base class for both called Shape
+Two methods: SetSize and GetArea
+(Size of an edge for square and the radius for circle)
+Put those two methods where you think they should go.  Avoid duplication and make sure Shape is polymorphic
+To test these classes, do the following
+
+Make a vector of Shape pointers
+(If you haven't ever seen vectors, it's "std::vector<Shape*> shapes;")
+Dynamically create some circles and squares and put them in the vector
+(That's the push_back command.)
+Loop through vector calling GetArea on each Shape
+(The actual size of anything doesn't matter.  Don't waste your time making a menu and using input though.)
+Make sure you have no memory leaks
+ */
+

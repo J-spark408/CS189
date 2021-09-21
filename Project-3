@@ -1,0 +1,133 @@
+#include <iostream>
+#include <list>
+#include <vector>
+#include <stack>
+#include <queue>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include "Student.h"
+
+Student::Student()
+{
+}
+
+Student::Student(std::string name, double GPA, double StudentDebt)
+{
+	studentName = name;
+	getGPA = GPA;
+	getStudentDebt = StudentDebt;
+}
+
+Student::~Student()
+{
+
+class Student
+{
+public:
+	Student();
+	Student(std::string name, double GPA, double StudentDebt);
+	std::string studentName;
+	double getGPA;
+	double getStudentDebt;
+	~Student();
+
+	struct CompareByGPA {
+		bool operator()(const Student& StudentA, const Student& StudentB) const
+		{
+			return StudentA.getGPA < StudentB.getGPA;
+		}
+	};
+
+	struct CompareByDebt {
+		bool operator()(const Student* StudentA, const Student* StudentB)const
+		{
+			return StudentA->getStudentDebt > StudentB->getStudentDebt;
+		}
+	};
+};
+
+int main()
+{
+	std::list<int> listNum;
+	listNum.push_back(3);
+	listNum.push_back(6);
+	listNum.push_back(9);
+	listNum.push_back(12);
+	listNum.push_back(15);
+
+	for (std::list<int>::iterator i = listNum.begin(); i != listNum.end(); i++)
+		std::cout << *i << " ";
+
+	std::vector<Student> studentVector;
+	studentVector.push_back(Student("John", 3.4, 1500));
+	studentVector.push_back(Student("Jacob", 3.0, 3300));
+	studentVector.push_back(Student("Jess", 4.0, 1100));
+
+	std::stack<Student*> studentStack;
+	studentStack.push(new Student());
+	studentStack.pop();
+	Student* student = new Student;
+	for (int i = 0; i < 10; i++)
+	{
+		Student* student1 = new Student;
+		studentStack.push(student1);
+	}
+	while (!studentStack.empty())
+	{
+		Student* temp = studentStack.top();
+		studentStack.pop();
+		delete temp;
+	}
+
+	std::set<int> setNum;
+	setNum.insert(2);
+	setNum.insert(4);
+	setNum.insert(8);
+	setNum.insert(16);
+	setNum.insert(32);
+
+	std::cout << std::endl;
+	std::set<int, std::greater<int> >::iterator itr;
+	for (itr = setNum.begin(); itr != setNum.end(); itr++)
+		std::cout << *itr << " ";
+
+	std::cout << "\n\n";
+	std::map<std::string, int> movieInfo;
+	movieInfo.insert(std::pair<std::string, int>("Karen", 2021));
+	movieInfo.insert(std::pair<std::string, int>("Good Boys", 2019));
+	movieInfo.insert(std::pair<std::string, int>("Interstellar", 2014));
+	movieInfo.insert(std::pair<std::string, int>("Deadpool", 2016));
+	movieInfo.insert(std::pair<std::string, int>("Parasite", 2019));
+	for (auto itr = movieInfo.begin(); itr!= movieInfo.end(); itr++)
+		std::cout << itr->first << ": " << itr->second << '\n';
+
+	std::cout << "\n---Unordered map---\n";
+	std::unordered_map<std::string, int> movieInfoScan;
+	movieInfoScan.insert(std::pair<std::string, int>("Karen", 2021));
+	movieInfoScan.insert(std::pair<std::string, int>("Good Boys", 2019));
+	movieInfoScan.insert(std::pair<std::string, int>("Interstellar", 2014));
+	movieInfoScan.insert(std::pair<std::string, int>("Deadpool", 2016));
+	movieInfoScan.insert(std::pair<std::string, int>("Parasite", 2019));
+	for (auto itr = movieInfoScan.begin(); itr != movieInfoScan.end(); itr++)
+		std::cout << itr->first << ": " << itr->second << '\n';
+
+	std::priority_queue <Student, std::vector<Student>, Student::CompareByGPA> GPAqueue;
+	GPAqueue.push(Student("John", 3.4, 1500));
+	GPAqueue.push(Student("Jacob", 3.0, 3300));
+	GPAqueue.push(Student("Jess", 4.0, 1100));
+	Student topStudent = GPAqueue.top();
+	
+	std::priority_queue < Student*, std::vector<Student*>, Student::CompareByDebt > Debtqueue;
+	Debtqueue.push(new Student("John", 3.4, 1500));
+	Debtqueue.push(new Student("Jacob", 3.0, 3300));
+	Debtqueue.push(new Student("Jess", 4.0, 1100));
+	Student* topDebtStudent = Debtqueue.top();
+	while (!Debtqueue.empty())
+	{
+		Student* temp = Debtqueue.top();
+		Debtqueue.pop();
+		delete temp;
+	}
+
+}
